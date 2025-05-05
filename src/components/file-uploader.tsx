@@ -3,7 +3,7 @@
 import type React from "react";
 
 import { useState } from "react";
-import { Upload } from "lucide-react";
+import { Loader2, Upload, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ImportModeDialog } from "@/components/import-mode-dialog";
@@ -21,6 +21,7 @@ export function FileUploader() {
     updated: number;
     skipped: number;
   } | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -47,15 +48,20 @@ export function FileUploader() {
   };
 
   const handleUpload = () => {
-    if (file) {
-      setIsDialogOpen(true);
+    setErrorMsg(null);
+    if (!file) {
+      setErrorMsg("No file selected.");
+      toast.error("No file selected.");
+      return;
     }
+      setIsDialogOpen(true);
+    
   };
 
   const handleImport = async (mode: number) => {
     setIsDialogOpen(false);
     setIsUploading(true);
-
+    setErrorMsg(null);
     try {
       const formData = new FormData();
       formData.append("file", file!);
@@ -65,7 +71,17 @@ export function FileUploader() {
       const data = response.data;
       console.log("Import Results:", data);
       setResults(data);
-    } catch (error) {
+      if (data.status !== "success") {
+        setErrorMsg("Import failed. Please check your file and try again.");
+        toast.error("Import failed.");
+      }
+    } catch (error:any) {
+      let msg = "Error importing data.";
+      if (error?.response?.data?.error) {
+        msg = error.response.data.error;
+      }
+      setErrorMsg(msg);
+      toast.error(msg);
       console.error("Error importing data:", error);
       setResults({
         status: "error",
@@ -122,11 +138,20 @@ export function FileUploader() {
                   />
                 </label>
               </div>
+              {errorMsg && (
+                <div className="flex items-center text-red-600 bg-red-50 rounded px-3 py-2 w-full">
+                  <XCircle className="w-4 h-4 mr-2" />
+                  <span className="text-sm">{errorMsg}</span>
+                </div>
+              )}
               <Button
                 onClick={handleUpload}
                 disabled={!file || isUploading}
-                className="w-full"
+                className="w-full flex items-center justify-center"
               >
+                 {isUploading && (
+                  <Loader2 className="animate-spin w-4 h-4 mr-2" />
+                )}
                 {isUploading ? "Uploading..." : "Upload and Continue"}
               </Button>
             </div>
