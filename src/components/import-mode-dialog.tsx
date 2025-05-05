@@ -88,7 +88,7 @@ export function ImportModeDialog({
                   Update Existing Companies Only (Without Overwrite)
                 </Label>
                 <p className="text-sm text-muted-foreground">
-                  Only update empty fields of existing companies. Don't insert
+                  Only update empty fields of existing companies. Don&apos;t insert
                   new companies.
                 </p>
               </div>
@@ -100,7 +100,7 @@ export function ImportModeDialog({
                   Update Existing Companies Only (With Overwrite)
                 </Label>
                 <p className="text-sm text-muted-foreground">
-                  Only update existing companies, overwriting all fields. Don't
+                  Only update existing companies, overwriting all fields. Don&apos;t 
                   insert new companies.
                 </p>
               </div>
