@@ -75,6 +75,7 @@ export function FileUploader() {
         setErrorMsg("Import failed. Please check your file and try again.");
         toast.error("Import failed.");
       }
+      // @typescript-eslint/no-explicit-any
     } catch (error:any) {
       let msg = "Error importing data.";
       if (error?.response?.data?.error) {
