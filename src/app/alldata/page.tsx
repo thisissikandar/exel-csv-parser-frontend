@@ -54,7 +54,7 @@ export type Company = {
   phone?: string;
 };
 
-export const columns: ColumnDef<Company>[] = [
+const columns: ColumnDef<Company>[] = [
   {
     id: "select",
     header: ({ table }) => (
