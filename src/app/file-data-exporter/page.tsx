@@ -44,6 +44,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { FileUploader } from "@/components/file-uploader";
 
 export type Company = {
   _id: string;
@@ -189,7 +190,18 @@ export default function AllCompaniesTable() {
   });
 
   return (
-    <Card className="m-4"> 
+     <main className="container mx-auto ">
+          <div className="flex flex-col items-center ">
+            <h1 className="text-3xl font-bold">Company Data Importer</h1>
+            <p className="text-muted-foreground text-center max-w-2xl">
+              Upload a CSV or Excel file to import company data. Choose from five
+              different import modes to control how your data is processed.
+            </p>
+            <div className="w-full max-w-md">
+              <FileUploader />
+            </div>
+          </div>
+          <Card className="m-4"> 
       <CardHeader>
         <CardTitle>All Companies</CardTitle>
         <CardDescription>
@@ -317,5 +329,7 @@ export default function AllCompaniesTable() {
         </div>
       </CardFooter>
     </Card>
+        </main>
+    
   );
 }
