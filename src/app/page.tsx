@@ -6,7 +6,7 @@ export default function Home() {
     <div className=" flex justify-center items-center w-screen h-screen gap-3">
       <Link href={"/file-data-exporter"}>
         <Button className="cursor-pointer">File exel csv importer</Button>
-      </Link>
+      </Link> 
       <Link href={"/crousel"}>
         <Button className="cursor-pointer">Crousel</Button>
       </Link>
