@@ -43,9 +43,9 @@ const page = () => {
     onSuccess: (data: any) => {
       console.log(data.data.statusCode);
       if (data.data.statusCode == 200) {
-        toast.success(data.data.message);
         router.push("/profile");
         router.refresh();
+        toast.success(data.data.message);
       }
     },
   });

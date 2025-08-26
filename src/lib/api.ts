@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 export const api: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
+  headers: { "Content-Type": "application/json" },
 });
 
 api.interceptors.request.use((config) => {
